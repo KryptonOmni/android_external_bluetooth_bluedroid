@@ -104,7 +104,9 @@ LOCAL_C_INCLUDES+= . \
 	external/tinyxml2
 
 LOCAL_CFLAGS += -DBUILDCFG $(bdroid_CFLAGS) -Werror -Wno-error=maybe-uninitialized -Wno-error=uninitialized
-LOCAL_CFLAGS += -DBUILDCFG $(bdroid_CFLAGS) -Werror -Wno-error=maybe-uninitialized -Wno-error=uninitialized -Wno-error=unused-parameter
+ifneq ($(filter 4.8 4.9 4.8.% 4.9.%, $(shell $(TARGET_CC) --version)),)
+LOCAL_CFLAGS += -Wno-error=unused-parameter
+endif
 
 ifeq ($(TARGET_PRODUCT), full_crespo)
      LOCAL_CFLAGS += -DTARGET_CRESPO
